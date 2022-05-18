@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+    <body style="background-color: cornflowerblue">
+        <div id="dvLogin" align="center" style="margin: 20px; padding: 20px">
+            <form
+                    action="/login"
+                    method="post">
+
+                <label for="edUsername">Username </label>
+                <input type="text" id="edUsername" name="edUsername"/>
+                <br/><br/>
+                <label for="edPassword">Password </label>
+                <input type="password" id="edPassword" name="edPassword">
+                <br/><br/>
+                <input type="submit" id="login" name="login" value="Login" style="font-size: 16px; align-content: center"/>
+                <br/><br/>
+                <a href="/" style="font-size: larger; background: aliceblue">HOME</a>
+            </form>
+        </div>
+        <div id="dvErrors" style="font-weight: bold; color: midnightblue">
+                {% with msgs = get_flashed_messages() %}
+                    {% if msgs %}
+                        <ul>
+                            {% for msg in msgs %}
+                            <li> {{msg}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+
+            </div>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Publish my painting</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+    <body style="background-color: cornflowerblue">
+        <div id="dvPainting">
+            <form id="frmPainting"
+                  method="post"
+                  enctype="multipart/form-data"
+                  action="/post_painting">
+                    <p>Hello {{ usr.username }}!</p>
+                    <br/><br/><br/>
+                    <label for="edTitle">Write a title for your painting! </label>
+                    <br/><br/>
+                    <input type="text" id="edTitle" name="edTitle" placeholder="this is a title..."/>
+                    <br/><br/>
+                    <label for="edPainting">Choose the picture of your painting! </label>
+                    <br/><br/>
+                    <input type="file" id="edPainting" name="edPainting" style="margin:20px;"/>
+                    {% if filename %}
+                        <div style="padding: 20px">
+                            <img src="{{ url_for('display_image', filename=filename) }}" alt="No image found" width="400px" height="400px">
+                        </div>
+                    {% endif %}
+                    <br/><br/><br/>
+                    <p>You can see the uploaded image after selecting the publish button!</p>
+                    <p>(Don't forget to select the Home link to return home after seeing the image)</p>
+                    <input type="submit" value="Publish"/>
+                    <br/><br/>
+                    <a href="/">Home</a>
+            </form>
+        </div>
+        <div id="dvErrors" style="font-weight: bold; color:  darkblue">
+                {% with msgs = get_flashed_messages() %}
+                    {% if msgs %}
+                        <ul>
+                            {% for msg in msgs %}
+                            <li> {{msg}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+
+            </div>
+    </body>
+</html>

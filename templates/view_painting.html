@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyArt</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+    <body style="background-color: cornflowerblue">
+        <div id="dvViewPainting" align="center">
+            <img src="{{ url_for('static', filename='images/'+painting.path) }}" alt="No image found" width="1000px" height="800px" border="1px">
+            <br/>
+            <h3>Title: </h3>{{ painting.title }}
+            <h3>Author: </h3>{{ painting.author }}
+            <h3>Publishing date: </h3>{{ painting.date }}
+            <h3>Points: </h3>{{ painting.points }}
+            <br/><br/>
+            <a href="/" style="font-size: larger; background: aliceblue">HOME</a>
+        </div>
+        <br/>
+
+        <div id="dvErrors" style="font-weight: bold; color: midnightblue">
+            {% with msgs = get_flashed_messages() %}
+                {% if msgs %}
+                    <ul>
+                        {% for msg in msgs %}
+                        <li> {{msg}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+    </body>
+</html>
