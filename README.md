@@ -1,13 +1,10 @@
-# MyArt
-Proyecto de ALS 2021-2022
+MyArt es una galería de arte en la que diferentes usuarios pueden compartir imágenes de sus obras y puntuarlas.
 
-MyArt es una galería de arte en la que diferentes usuarios pueden compartir imágenes de sus obras y puntuar (tanto las suyas como las de los demás).
+Las acciones que se pueden llevar a cabo en la aplicación son las siguientes:
 
-Las acciones que se pueden llevar a cabo son:
-
-- Registrarse
-- Iniciar sesión
-- Cerrar sesión
-- Ver una publicación seleccionando la imagen (cualquiera puede hacerlo, haya iniciado sesión o no)
-- Subir una publicación a la plataforma (solo aquellos usuarios que hayan iniciado sesión pueden hacer esto)
-
+- Registrarse.
+- Iniciar sesión.
+- Cerrar sesión.
+- Ver una publicación seleccionando su imagen (cualquiera puede hacerlo, haya iniciado sesión o no).
+- Subir una publicación a la plataforma (solo usuarios registrados).
+- Puntuar una publicación (solo usuarios registrados). Dicho puntaje debe estar comprendido entre 1 y 10 puntos, ambos incluidos. No se puede puntuar una publicación que tú mismo hayas subido, solo las publicaciones de otros usuarios.
