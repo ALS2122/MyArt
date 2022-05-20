@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
     <body style="background-color: cornflowerblue">
-        <div id="dvPainting">
+        <div id="dvPainting" align="center">
             <form id="frmPainting"
                   method="post"
                   enctype="multipart/form-data"
@@ -19,18 +19,13 @@
                     <br/><br/>
                     <label for="edPainting">Choose the picture of your painting! </label>
                     <br/><br/>
-                    <input type="file" id="edPainting" name="edPainting" style="margin:20px;"/>
-                    {% if filename %}
-                        <div style="padding: 20px">
-                            <img src="{{ url_for('display_image', filename=filename) }}" alt="No image found" width="400px" height="400px">
-                        </div>
-                    {% endif %}
+                    <input type="file" id="edPainting" name="edPainting" style="margin:20px; font-size: 16px"/>
                     <br/><br/><br/>
                     <p>You can see the uploaded image after selecting the publish button!</p>
                     <p>(Don't forget to select the Home link to return home after seeing the image)</p>
-                    <input type="submit" value="Publish"/>
+                    <input type="submit" value="Publish" style="font-size: 16px"/>
                     <br/><br/>
-                    <a href="/">Home</a>
+                    <a href="/" style="font-size: larger; background: aliceblue">HOME</a>
             </form>
         </div>
         <div id="dvErrors" style="font-weight: bold; color:  darkblue">

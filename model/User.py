@@ -1,5 +1,4 @@
 # Representa a la clase User en el almacenamiento
-from typing import Optional
 
 import flask_login
 import werkzeug.security as safe
@@ -24,10 +23,6 @@ class User(flask_login.UserMixin):
 
     def add_painting_oid(self, painting_oid):
         self.oids_paintings.append(painting_oid)
-
-    def find_painting_oid(self, p):
-        if self._paintings_oids.__contains__(p):
-            return self._paintings_oids.__getitem__(p)
 
     # Verifica la contraseña
     def check_password(self, p):

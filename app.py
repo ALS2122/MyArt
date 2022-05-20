@@ -97,13 +97,16 @@ def logout():
 
 
 @app.route('/', methods=['GET', 'POST'])
+# pagina principal (home)
 def index():
     usr = User.current_user()
+    # en el home se cargan las ultimas 30 publicaciones
     last_paintings = list(srp.load_last(Painting, 30))
 
     sust = {
         "usr": usr,
         "last_paintings": last_paintings,
+        # necesario para saber a que publicacion en concreto afectan ciertas acciones
         "paintings_oids": {painting.__oid__: srp.safe_from_oid(painting.__oid__) for painting in last_paintings}
     }
 
@@ -112,6 +115,7 @@ def index():
 
 @app.route('/punctuate/', methods=['POST'])
 @login_required
+# para puntuar una publicacion
 def punctuate():
     safe_oid = flask.request.args.get('oid')
     points = int(flask.request.form.get("edPunctuate"))
@@ -119,6 +123,7 @@ def punctuate():
     if not safe_oid:
         return flask.flash("OID not found")
 
+    # se carga desde el almacenamiento
     painting = srp.load(srp.oid_from_safe(safe_oid))
 
     if not painting:
@@ -135,6 +140,7 @@ def punctuate():
 
 @app.route('/post_painting', methods=['GET', 'POST'])
 @login_required
+# para publicar
 def post_painting():
     usr = User.current_user()
     title = flask.request.form.get("edTitle")
@@ -149,55 +155,51 @@ def post_painting():
         if not f and allowed_file(f.filename):
             flask.flash("Unsupported file type")
         else:
+
+            # guardar en la carpeta de imagenes la imagen subida por el usuario
+
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             path = os.path.join(filename)
 
-            # Guardar
+            # Guardar en el almacenamiento el nuevo objeto Painting
 
             p = Painting(title, path, usr.username)
             p_oid = srp.save(p)
             usr.add_painting_oid(p_oid)
             srp.save(usr)
 
-            sust = {
-                "usr": usr,
-                "filename": filename,
-                "path": path
-            }
+            return flask.redirect('/')
 
-            return flask.render_template('post_painting.html', **sust)
-
-    sus = {
+    sust = {
         "usr": usr,
         "f": f
     }
 
-    return flask.render_template('post_painting.html', **sus)
+    return flask.render_template('post_painting.html', **sust)
 
 
 @app.route('/view_painting/', methods=['GET'])
+# para ver una publicacion
 def view_painting():
     safe_oid = flask.request.args.get('oid')
+    usr = User.current_user()
 
     if not safe_oid:
         return flask.flash("OID not found")
 
+    # se carga desde el almacenamiento
     painting = srp.load(srp.oid_from_safe(safe_oid))
 
     if not painting:
         return flask.flash("obj not found")
 
     sust = {
-        "painting": painting
+        "painting": painting,
+        "usr": usr
     }
 
     return flask.render_template('view_painting.html', **sust)
-
-
-@app.route('/display_image/<filename>')
-def display_image(filename):
-    return flask.redirect(flask.url_for('static', filename='images/' + filename), code=301)
 
 
 @lm.unauthorized_handler
